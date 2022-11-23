@@ -60,6 +60,9 @@ class RevisionArchiveStorageManager extends DefaultPluginManager implements Revi
    * {@inheritDocs}
    */
   public function archive(EntityInterface $revision) {
+    if ($revision->getEntityTypeId() === 'content_moderation_state') {
+      return;
+    }
     $config = $this->configFactory->get('node_revision_delete_archive.settings');
     $storage_settings = $config->get('storage');
     foreach ($this->getDefinitions() as $id => $definition) {
